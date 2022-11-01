@@ -1,0 +1,50 @@
+<div class="table-responsive">
+<table class="table">
+<thead>
+  <tr>
+    <th>Title</th>
+    <th>Sub</th>
+    <th>When</th>
+    <th>Thumb</th>
+  </tr>
+</thead>
+<tbody>
+{% for post in posts %}
+<tr>
+  <td>
+    {% if post.error %}
+    <i class="fas fa-xs fa-exclamation-triangle text-danger"></i>
+    {% elseif post.url is empty %}
+    <i class="far fa-xs fa-clock text-muted"></i>
+    {% else %}
+    <i class="fa fa-xs fa-check text-muted"></i>
+    {% endif %}
+    <a href="/edit?id={{ post.id }}">{{ post.title }}</a>
+    {% if post.ratelimit_count %}
+    <span class="badge badge-warning">ratelimit</span>
+    {% endif %}
+  </td>
+  <td>{{ post.subreddit }}</td>
+  <td>
+    <span title="{{ (post.when_original ?? post.when) | date("Y-m-d g:ia T", timezone=post.whenzone) }}">
+      {{ (post.when_original ?? post.when) | time_diff }}
+    </span>
+  </td>
+  <td class="d-flex justify-content-center align-items-center">
+    {% embed "thumbnail_dispatch.html" with {thumb: post.thumb} only %}
+      {% use "thumbnail.html" %}
+    {% endembed %}
+  </td>
+</tr>
+{% else %}
+<tr>
+  <td colspan="4">
+    <div class="text-center text-muted">
+      You have no posts
+    </div>
+  </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>

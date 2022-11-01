@@ -1,0 +1,64 @@
+{% if account.donator %}
+{% if not account.hideThanks %}
+<div class="alert alert-success">
+  Thanks for donating.
+  <a class="close" href="/hidethanks">
+    <span aria-hidden="true">&times;</span>
+  </a>
+</div>
+{% endif %}
+{% else %}
+{% endif %}
+
+{% if account.banned %}
+<div class="alert alert-danger">
+  {{ account.banned }}
+</div>
+{% endif %}
+
+{% if not account.stopNagging %}
+<div class="alert alert-info">
+  Please take a moment to
+  <a href="https://docs.google.com/forms/d/1GwDKdaKHEmuGtTxzawpc7FDniQ5tmQORoCau7SSHQv4/viewform?edit_requested=true" target="_blank">provide feedback</a>.
+  <a class="close" href="/stopnagging">
+    <span aria-hidden="true">&times;</span>
+  </a>
+</div>
+{% endif %}
+
+<div class="row">
+  <div class="col-md col-6">
+    <a class="btn btn-primary btn-block" href="/submit">
+      <i class="fa fa-pen"></i>
+      Add Post
+    </a>
+  </div>
+  <div class="col-md col-6">
+    <a class="btn btn-secondary btn-block" href="/import">
+      <i class="fas fa-file-csv"></i>
+      Import
+    </a>
+  </div>
+  <div class="col-md col-6">
+    <a class="btn btn-secondary btn-block" href="/export">
+      <i class="fas fa-file-csv"></i>
+      Export
+    </a>
+  </div>
+  <div class="col-md col-6">
+    <div class="dropdown show">
+      <a class="btn btn-secondary btn-block dropdown-toggle" href="#" role="button" id="viewSelect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        View
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="viewSelect">
+        {% for item in view_list %}
+        <a class="dropdown-item{{ item.template == view ? ' active' : '' }}" href="/dashboard?view={{ item.id }}">{{ item.desc }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+</p>
+
+{% include view %}
