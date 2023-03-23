@@ -200,7 +200,7 @@ su cronnit <<EOF
         git remote add origin https://github.com/truonghaiceo/redditold
     fi
 
-    git pull origin main
+    git pull origin master
     git branch --set-upstream-to=origin/master master
     composer update
     
