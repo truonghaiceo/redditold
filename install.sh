@@ -200,8 +200,10 @@ su cronnit <<EOF
         git remote add origin https://github.com/truonghaiceo/redditold
     fi
 
-    git pull origin master
-    git branch --set-upstream-to=origin/master master
+    git branch -m main master
+    git fetch origin
+    git branch -u origin/master master
+    git remote set-head origin -a
     composer update
     
     if ! crontab -l | grep cron.sh; then
