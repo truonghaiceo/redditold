@@ -201,9 +201,9 @@ su cronnit <<EOF
     fi
 
     git pull origin main
-    git branch --set-upstream-to=origin/master main
+    git branch --set-upstream-to=origin/master master
     composer update
-
+    
     if ! crontab -l | grep cron.sh; then
         (
             crontab -l 2> /dev/null;
