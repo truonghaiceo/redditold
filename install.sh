@@ -197,7 +197,7 @@ su cronnit <<EOF
 
     if [ ! -d .git ]; then
         git init
-        git remote add origin https://github.com/truonghaiceo/redditold.git
+        git remote add origin https://github.com/truonghaiceo/redditold
     fi
 
     git pull origin master
