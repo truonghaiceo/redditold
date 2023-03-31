@@ -84,64 +84,7 @@ a2dismod userdir
 # Remove the default Apache landing page configuration
 rm -f /etc/apache2/sites-enabled/000-default.conf
 
-# Turn the web server off since we might be doing certbot stuff with a
-# standalone HTTP server
-service apache2 stop
 
-if [ ! "$HTTP_ONLY" ]; then
-    if [ "$is_subdomain" ]; then
-        certbot certonly -n --agree-tos --email "$email" --standalone -d "$hostname"
-    else
-        certbot certonly -n --agree-tos --email "$email" --standalone -d "$hostname" -d "www.$hostname"
-    fi
-
-url="https://$hostname"
-cat > /etc/apache2/sites-enabled/000-cronnit.conf <<EOL
-ServerSignature Off
-ServerTokens Prod
-
-<VirtualHost *:80>
-  ServerName $hostname
-  ServerAlias www.$hostname
-  Redirect permanent / https://$hostname/
-</VirtualHost>
-
-<VirtualHost *:443>
-  ServerName $hostname
-  ServerAlias www.$hostname
-  DocumentRoot /home/cronnit/public_html
-
-  <Directory /home/cronnit/public_html/>
-    Options Indexes FollowSymLinks
-    AllowOverride All
-    Require all granted
-  </Directory>
-
-  SSLEngine on
-  SSLCertificateFile "/etc/letsencrypt/live/$hostname/cert.pem"
-  SSLCertificateKeyFile "/etc/letsencrypt/live/$hostname/privkey.pem"
-  SSLCertificateChainFile "/etc/letsencrypt/live/$hostname/chain.pem"
-</VirtualHost>
-EOL
-else
-url="http://$hostname"
-cat > /etc/apache2/sites-enabled/000-cronnit.conf <<EOL
-ServerSignature Off
-ServerTokens Prod
-
-<VirtualHost *:80>
-  ServerName $hostname
-  ServerAlias www.$hostname
-  DocumentRoot /home/cronnit/public_html
-
-  <Directory /home/cronnit/public_html/>
-    Options Indexes FollowSymLinks
-    AllowOverride All
-    Require all granted
-  </Directory>
-</VirtualHost>
-EOL
-fi
 
 # Restart the apache2 service so module changes take effect
 service apache2 restart
