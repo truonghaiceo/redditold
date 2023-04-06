@@ -127,7 +127,7 @@ class Cronnit {
   }
 
   public function getBaseUrl() : string {
-    return $this->config->url ?? "https://cronnit.us";
+    return $this->config->url ?? "https://reddnews.me";
   }
 
   public function getReddit() {
@@ -135,7 +135,7 @@ class Cronnit {
       'clientId' => $this->config->client_id,
       'clientSecret' => $this->config->client_secret,
       'redirectUri' => "{$this->getBaseUrl()}/authorize",
-      'userAgent' => 'linux:cronnit:1.1, (by /u/KayRice)',
+      'userAgent' => 'linux:cronnit:1.1, (by /u/ExchangeDesigner7739)',
       'scopes' => ['identity', 'submit']
     ]);
   }
