@@ -127,7 +127,7 @@ class Cronnit {
   }
 
   public function getBaseUrl() : string {
-    return $this->config->url ?? "https://reddnews.me";
+    return $this->config->url ?? "http://reddnews.me";
   }
 
   public function getReddit() {
