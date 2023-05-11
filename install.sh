@@ -8,10 +8,10 @@
 #
 # It's safe to re-run this script
 
-hostname="reddnews.me"
-client_id="48rDbt8nCTzO7KaZdC7TJg"
-client_secret="l7c8TD-K7NRzlaTGhJ-itVG9CFRXIw"
-email="dollelouchg@outlook.com"
+hostname="reddhubs.com"
+client_id="unAxmW43rREjzxvs6XrAww"
+client_secret="RQF_EozRZ3iqZsJHsp73nTXuVn_img"
+email="nguyenhaiking@gmail.com"
 
 # Make sure we are running as root
 if [ $(whoami) != root ]; then
